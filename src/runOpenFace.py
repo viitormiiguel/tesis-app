@@ -4,6 +4,9 @@ import subprocess
 import shutil
 import csv
 import json 
+import pymongo
+from random_object_id import generate
+from bson.objectid import ObjectId
 
 import numpy as np 
 import pandas as pd 
@@ -32,25 +35,40 @@ def readFile(image):
     
     valores = arquivo.iloc[:, 676:693]
     
-    data = {}
     
+    idImage = ObjectId(generate())
+    idOpen = ObjectId(generate())
+    
+    data = []    
     data.append({
+        'imageId': idImage,
         'personalId': 'teste',
         'image': nome[1],
         'imgeurl': '',
-        'deep3D': False,
-        'deca': False,
-        'emoca': False
-    });
+        'type': 'real',
+    })
     
-    data = valores.to_json(orient = 'records')
-    
-    print(valores)
-    print(data)
+    dataOpen = []
+    dataOpen.append({
+        'openId': idOpen,
+        'imageId': idImage,
+        'openface': valores.to_json(orient = 'records')
+    })
+        
+    return data, dataOpen
 
-def sendReturn():
+def saveMOngo(ret):
     
-    return 'OK'
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["tesis-app"]
+    
+    ## Add image data
+    mycol = mydb["images"]
+    mycol.insert_many(ret[0])
+        
+    ## Add OpenFace Data Image
+    mycol = mydb["openFace"]
+    mycol.insert_many(ret[1])        
 
 if __name__ == '__main__':
 
@@ -58,6 +76,9 @@ if __name__ == '__main__':
     
     image = 'input\\58-12.jpg'
     
-    # runOpenFace(image)
+    runOpenFace(image)
     
-    readFile(image)
+    r = readFile(image)
+    
+    saveMOngo(r)
+    
