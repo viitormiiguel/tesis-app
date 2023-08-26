@@ -35,6 +35,9 @@ def readFile(image):
     
     valores = arquivo.iloc[:, 676:693]
     
+    land2D = arquivo.iloc[:, 296:432]
+        
+    land3D = arquivo.iloc[:, 432:636]
     
     idImage = ObjectId(generate())
     idOpen = ObjectId(generate())
@@ -52,7 +55,9 @@ def readFile(image):
     dataOpen.append({
         'openId': idOpen,
         'imageId': idImage,
-        'openface': valores.to_json(orient = 'records')
+        'aus': valores.to_json(orient = 'records'),
+        'landmarks2D': land2D.to_json(orient = 'records'),
+        'landmarks3D': land3D.to_json(orient = 'records'),
     })
         
     return data, dataOpen
@@ -76,7 +81,7 @@ if __name__ == '__main__':
     
     image = 'input\\58-12.jpg'
     
-    runOpenFace(image)
+    # runOpenFace(image)
     
     r = readFile(image)
     
