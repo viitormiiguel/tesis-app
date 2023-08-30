@@ -6,27 +6,36 @@ import matplotlib.pyplot as plt ## for visualization
 import os 
 import pandas as pd
 
-detector = Detector(
-    face_model="retinaface",
-    landmark_model="mobilefacenet",
-    au_model='xgb',
-    emotion_model="resmasknet",
-    facepose_model="img2pose",
-)
+def getHeat(imagem):
 
-# Helper to point to the test data folder
-path = 'E:\\PythonProjects\\tesis-app\\input\\'
+    single_face_img_path = os.path.join(path, imagem)
 
-# Get the full path
-single_face_img_path = os.path.join(path, "099_08.jpg")
+    single_face_prediction = detector.detect_image(single_face_img_path)
 
-single_face_prediction = detector.detect_image(single_face_img_path)
+    emotions = single_face_prediction.emotions
+    
+    aus = single_face_prediction.aus
 
-# Show results
-# print(single_face_prediction.emotions)
+    figs = single_face_prediction.plot_detections(faces='aus-heat', muscles=True, emotion_barplot=False, au_barplot=False, faceboxes=False, add_titles=False)
 
-# figs = single_face_prediction.plot_detections(poses=True, emotion_barplot=False, au_barplot=False)
+    # plt.show()
+    
+    plt.savefig('E:\\PythonProjects\\tesis-app\\data\\output\\retPyfeat\\' + imagem)
+    
+    return emotions, aus
 
-figs2 = single_face_prediction.plot_detections(faces='aus-heat', muscles=True, emotion_barplot=False, au_barplot=False)
-
-plt.show()
+if __name__ == '__main__':
+    
+    detector = Detector(
+        face_model="retinaface",
+        landmark_model="mobilefacenet",
+        au_model='xgb',
+        emotion_model="resmasknet",
+        facepose_model="img2pose",
+    )
+    
+    path = 'E:\\PythonProjects\\tesis-app\\data\\input\\'
+    
+    img = '064_08.jpg'
+    
+    ret = getHeat(img)
