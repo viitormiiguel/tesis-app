@@ -6,6 +6,7 @@ from flask import Flask, request
 
 from src.runOpenFace import runOpenFace
 from src.runOpenFace import saveData
+from src.runPyfeat import getHeat
 
 app = Flask(__name__)
 
@@ -22,6 +23,8 @@ def createData():
         r = runOpenFace(request_body['file'])
                 
         s = saveData(request_body['file'])
+        
+        t = getHeat(request_body['file'])
             
         return '## Dados salvos com sucesso! ##'
         

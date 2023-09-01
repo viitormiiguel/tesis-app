@@ -96,5 +96,3 @@ if __name__ == '__main__':
     path = 'E:\\PythonProjects\\tesis-app\\'
     
     image = '064_08.jpg'
-    
-    readFile(image)
