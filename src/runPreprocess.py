@@ -11,7 +11,7 @@ from PIL import Image
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('./model/shape_predictor_68_face_landmarks.dat')
 
-def createTxt(imagesp):
+def createTxtDeep(imagesp):
     
     subpastas = os.listdir(imagesp)
         
@@ -19,8 +19,6 @@ def createTxt(imagesp):
 
         pimg = imagesp + p
         
-        print(pimg)
-
         img = cv2.imread(pimg)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         rects = detector(gray, 0)
@@ -54,4 +52,4 @@ if __name__ == '__main__':
     
     path = './data/input/'
     
-    createTxt(path)
+    createTxtDeep(path)
