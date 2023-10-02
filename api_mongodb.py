@@ -1,5 +1,5 @@
 
 from flask import Flask, request, jsonify
-from database import initialize_db
+from api_database import initialize_db
 
 
