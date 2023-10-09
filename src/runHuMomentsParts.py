@@ -64,8 +64,8 @@ if __name__ == '__main__':
     mp_drawing = mp.solutions.drawing_utils
     
     # carregar arquivo
-    # path_df = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\csv\\cropped_face_frontal_1990f_hu_moments.csv'
-    path_df = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\csv\\cropped_val_face_frontal_4322f_hu_moments.csv'
+    # path_df = './model/cropped_face_frontal_1990f_hu_moments.csv'
+    path_df = './model/cropped_val_face_frontal_and_parts_4322f_hu_moments.csv'
 
     df = carrega_dado(path_df)
     dt_total = pd.DataFrame()
@@ -75,6 +75,8 @@ if __name__ == '__main__':
         
         image_path = df['path_image'][i] #.replace('cropped','Openface_Frontal').replace("\\", "\\\\")
         print(image_path)
+        
+        exit()
         
         # Carregue a imagem
         image = cv2.imread(image_path)
