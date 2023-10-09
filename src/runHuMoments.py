@@ -90,7 +90,6 @@ def extrai_feature_hu_moments_imagem(arqs):
         
     return dtAux
 
-
 if __name__ == '__main__':
     
     # Inicialize o MediaPipe

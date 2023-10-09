@@ -267,15 +267,15 @@ def interpretabilidade_lime(path_model, path_treino, path_valida):
     normalized  = path_model[path_model.find('normalized') + 11]
     pca         = path_model[path_model.find('pca') + 4]
     degree      = int(path_model[path_model.find('poly') + 5])
-    
+        
     # carrega modelo
     arquivo_modelo  = jb.load(path_model)
     modelo          = arquivo_modelo['modelo']
-    
+        
     # carrega dataset treino e validacao
     raw     = carrega_dado(path_treino)
     raw_val = carrega_dado(path_valida)
-    
+        
     x_treino = raw.copy()
     x_treino.drop(columns={'Unnamed: 0','Unnamed: 0.1'}, inplace=True)
 
@@ -293,8 +293,7 @@ def interpretabilidade_lime(path_model, path_treino, path_valida):
         coluna_base_feature = subtract_lists(x_treino.columns.tolist(), coluna_base)
         
     # manipula dados
-    x_treino_temp = manipula_dados(x_treino[coluna_base_feature].copy(), standard,logaritm, normalized)
-    
+    x_treino_temp = manipula_dados(x_treino[coluna_base_feature].copy(), standard,logaritm, normalized)    
     x_valida_temp = manipula_dados(x_valida[coluna_base_feature].copy(), standard,logaritm, normalized)
     
     # degree
@@ -442,4 +441,4 @@ if __name__ == '__main__':
     path_valida = './model/cropped_val_face_frontal_and_parts_4322f_hu_moments.csv'
     
     # Interpretabilidade LIME 
-    interpretabilidade_lime(path_model, path_treino, path_valida)
+    # interpretabilidade_lime(path_model, path_treino, path_valida)
