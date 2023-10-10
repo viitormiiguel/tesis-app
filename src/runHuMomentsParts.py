@@ -74,9 +74,7 @@ if __name__ == '__main__':
     for i in range(len(df)):
         
         image_path = df['path_image'][i] #.replace('cropped','Openface_Frontal').replace("\\", "\\\\")
-        print(image_path)
-        
-        exit()
+        # print(image_path)
         
         # Carregue a imagem
         image = cv2.imread(image_path)
