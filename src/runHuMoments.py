@@ -96,12 +96,14 @@ if __name__ == '__main__':
     mp_face_mesh = mp.solutions.face_mesh
     mp_drawing = mp.solutions.drawing_utils
     
-    path_cropped = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\cropped_val\\'
-    path_image = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\Openface\\48\\'
+    path_cropped = './model/data/cropped_val/'
+    path_image = './model/data/test/'
     
     lista_image = listFile(path_image)
     lista_cropped = [ arquivo for arquivo in lista_image if arquivo.endswith(".bmp") ]
     
+    print(lista_image)
+    exit()
     for i in range(len(lista_cropped)):
     
         nova_imagem = lista_cropped[i].split('\\')[-1]
@@ -164,8 +166,9 @@ if __name__ == '__main__':
     a = character.join(comf)
 
     #path_cropped = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\cropped\\'
-    path_cropped = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\cropped_val\\'
+    path_cropped = './model/data/cropped_val/'
     lista_image = listFile(path_cropped)
+
     
     dt = pd.DataFrame()
     for i in range(len(lista_image)):
@@ -185,7 +188,7 @@ if __name__ == '__main__':
 
     dt = dt[['path_image', 'character', 'comfort','UV', 'hu0', 'hu1', 'hu2', 'hu3', 'hu4', 'hu5', 'hu6']]
 
-    dt.to_csv('E:\\Greice\\Doutorado\\Modelos\\UV6.0\\csv\\cropped_val_face_frontal_4322f_hu_moments.csv')
+    dt.to_csv('./model/test_4322f_hu_moments.csv')
     
     plt.figure(figsize=(10,6))
     sns.countplot(x='character', data=dt)
