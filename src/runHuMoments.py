@@ -179,7 +179,7 @@ if __name__ == '__main__':
     
     print(dt)
     print(dt['path_image'][i].split('/')[-2] for i in range(len(dt)))
-    exit()
+    # exit()
     dt['character'] = [ dt['path_image'][i].split('/')[-2] for i in range(len(dt)) ]
     
     dt = dt.tail(-1)
