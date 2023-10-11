@@ -71,7 +71,7 @@ def crop_landmarks(image, landmarks, landmark_indices):
 def extrai_feature_hu_moments_imagem(arqs):
     
     # reading the image
-    print('arqs: ',arqs)
+    # print('arqs: ',arqs)
     img = cv2.imread(arqs, cv2.IMREAD_GRAYSCALE)
     img = cv2.bitwise_not(img)
         
@@ -100,14 +100,12 @@ if __name__ == '__main__':
     path_image = './model/data/test/'
     
     lista_image = listFile(path_image)
-    lista_cropped = [ arquivo for arquivo in lista_image if arquivo.endswith(".bmp") ]
+    lista_cropped = [ arquivo for arquivo in lista_image if arquivo.endswith(".png") ]
     
-    print(lista_image)
-    exit()
     for i in range(len(lista_cropped)):
     
-        nova_imagem = lista_cropped[i].split('\\')[-1]
-        diretorio_imagem = lista_cropped[i].split('\\')[-3]
+        nova_imagem = lista_cropped[i].split('/')[-1]
+        diretorio_imagem = lista_cropped[i].split('/')[-3]
         
         image = cv2.imread(lista_cropped[i])
         
@@ -138,12 +136,12 @@ if __name__ == '__main__':
             # Converta o array NumPy em um objeto Image
             imagem_pillow = Image.fromarray(cropped_face)
             
-            if not os.path.exists(path_cropped+'\\'+diretorio_imagem):
+            if not os.path.exists(path_image+'/'+diretorio_imagem):
             # Crie a pasta e seus diretórios intermediários
-                os.makedirs(path_cropped+'\\'+diretorio_imagem)
+                os.makedirs(path_image+'/'+diretorio_imagem)
             
             # Agora você pode salvar a imagem usando o objeto Image
-            imagem_pillow.save(path_cropped+'\\'+diretorio_imagem+'\\'+nova_imagem)
+            imagem_pillow.save(path_image+'/'+diretorio_imagem+'/'+nova_imagem)
             
         except:
             None       
@@ -166,10 +164,9 @@ if __name__ == '__main__':
     a = character.join(comf)
 
     #path_cropped = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\cropped\\'
-    path_cropped = './model/data/cropped_val/'
+    path_cropped = './model/data/test/data/'
     lista_image = listFile(path_cropped)
 
-    
     dt = pd.DataFrame()
     for i in range(len(lista_image)):
         aux = extrai_feature_hu_moments_imagem(lista_image[i])
@@ -179,8 +176,16 @@ if __name__ == '__main__':
             dt = pd.concat([dt,aux], axis=0)
             
     dt.reset_index(drop=True, inplace=True)
-    dt['character'] = [ dt['path_image'][i].split('\\')[-2] for i in range(len(dt)) ]
+    
+    print(dt)
+    print(dt['path_image'][i].split('/')[-2] for i in range(len(dt)))
+    exit()
+    dt['character'] = [ dt['path_image'][i].split('/')[-2] for i in range(len(dt)) ]
+    
+    dt = dt.tail(-1)
+    print(dt)
     dt['comfort'] = [ a[a['character']==int(c)]['comfort'].values[0] for c in dt['character'] ]
+    
 
     dt['UV'] = 0
     dt['UV'] = [ 1 if c<= 50 else 0 for c in dt['comfort'] ]
