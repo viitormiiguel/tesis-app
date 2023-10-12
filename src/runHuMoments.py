@@ -96,16 +96,23 @@ if __name__ == '__main__':
     mp_face_mesh = mp.solutions.face_mesh
     mp_drawing = mp.solutions.drawing_utils
     
-    path_cropped = './model/data/cropped_val/'
-    path_image = './model/data/test/'
+    path_cropped = './model/images/cropped_val/'
+    path_image = './model/images/test/'
     
     lista_image = listFile(path_image)
-    lista_cropped = [ arquivo for arquivo in lista_image if arquivo.endswith(".png") ]
+    lista_cropped = [ arquivo for arquivo in lista_image if arquivo.endswith(".png") or arquivo.endswith(".bmp") ]
     
     for i in range(len(lista_cropped)):
-    
-        nova_imagem = lista_cropped[i].split('/')[-1]
-        diretorio_imagem = lista_cropped[i].split('/')[-3]
+        
+        if '\\' in lista_cropped[i]: 
+        
+            nova_imagem = lista_cropped[i].split('\\')[-1] 
+            diretorio_imagem = lista_cropped[i].split('\\')[-3]
+        
+        else:
+        
+            nova_imagem = lista_cropped[i].split('/')[-1];
+            diretorio_imagem = lista_cropped[i].split('/')[-3]       
         
         image = cv2.imread(lista_cropped[i])
         
@@ -164,7 +171,7 @@ if __name__ == '__main__':
     a = character.join(comf)
 
     #path_cropped = 'E:\\Greice\\Doutorado\\Modelos\\UV6.0\\cropped\\'
-    path_cropped = './model/data/test/data/'
+    path_cropped = './model/images/test/test/'
     lista_image = listFile(path_cropped)
 
     dt = pd.DataFrame()
@@ -177,30 +184,29 @@ if __name__ == '__main__':
             
     dt.reset_index(drop=True, inplace=True)
     
-    print(dt)
-    print(dt['path_image'][i].split('/')[-2] for i in range(len(dt)))
-    # exit()
-    dt['character'] = [ dt['path_image'][i].split('/')[-2] for i in range(len(dt)) ]
+    if '\\' in dt['path_image'][i]:
+        dt['character'] = [ dt['path_image'][i].split('\\')[-2] for i in range(len(dt)) ]
+    else:
+        dt['character'] = [ dt['path_image'][i].split('/')[-2] for i in range(len(dt)) ]
     
     dt = dt.tail(-1)
-    print(dt)
-    dt['comfort'] = [ a[a['character']==int(c)]['comfort'].values[0] for c in dt['character'] ]
+    # dt['comfort'] = [ a[a['character']==int(c)]['comfort'].values[0] for c in dt['character'] ]
     
+    # dt['UV'] = 0
+    # dt['UV'] = [ 1 if c<= 50 else 0 for c in dt['comfort'] ]
+    # dt['UV'].value_counts()
 
-    dt['UV'] = 0
-    dt['UV'] = [ 1 if c<= 50 else 0 for c in dt['comfort'] ]
-    dt['UV'].value_counts()
-
-    dt = dt[['path_image', 'character', 'comfort','UV', 'hu0', 'hu1', 'hu2', 'hu3', 'hu4', 'hu5', 'hu6']]
+    # dt = dt[['path_image', 'character', 'comfort','UV', 'hu0', 'hu1', 'hu2', 'hu3', 'hu4', 'hu5', 'hu6']]
+    dt = dt[['path_image', 'character', 'hu0', 'hu1', 'hu2', 'hu3', 'hu4', 'hu5', 'hu6']]
 
     dt.to_csv('./model/test_4322f_hu_moments.csv')
     
-    plt.figure(figsize=(10,6))
-    sns.countplot(x='character', data=dt)
-    plt.xlabel('Personagens')
-    plt.ylabel('Quantidade');
+    # plt.figure(figsize=(10,6))
+    # sns.countplot(x='character', data=dt)
+    # plt.xlabel('Personagens')
+    # plt.ylabel('Quantidade');
 
-    plt.figure(figsize=(10,6))
-    sns.countplot(x='UV', data=dt)
-    plt.xlabel('Conforto (0) x Desconforto (1)')
-    plt.ylabel('Quantidade');
+    # plt.figure(figsize=(10,6))
+    # sns.countplot(x='UV', data=dt)
+    # plt.xlabel('Conforto (0) x Desconforto (1)')
+    # plt.ylabel('Quantidade');

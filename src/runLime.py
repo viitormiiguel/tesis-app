@@ -423,22 +423,22 @@ def interpretabilidade_PCA(path_model, path_treino):
         
 if __name__ == '__main__':
     
-    path_model  = './model/model_statsmodels_feature_hu_face_toda_poly_2_standard_n_logaritm_y_normalized_n_pca_n_.lib'
+    path_model  = './model/lib/model_statsmodels_feature_hu_face_toda_poly_2_standard_n_logaritm_y_normalized_n_pca_n_.lib'
     path_lime   = './model/uv6/lime/'
     
-    path_treino = './model/cropped_face_and_parts_frontal_1990f_hu_moments.csv'
-    path_valida = './model/cropped_val_face_frontal_and_parts_4322f_hu_moments.csv'
+    path_treino = './model/data/cropped_face_and_parts_frontal_1990f_hu_moments.csv'
+    path_valida = './model/data/cropped_val_face_frontal_and_parts_4322f_hu_moments.csv'
     
     # Interpretabilidade LIME 
     interpretabilidade_lime(path_model, path_treino, path_valida)
     
     ## ===========================================================================
     
-    path_model  = './model/model_statsmodels_feature_hu_partes_poly_2_standard_n_logaritm_n_normalized_y_pca_n_.lib'
+    path_model  = './model/lib/model_statsmodels_feature_hu_partes_poly_2_standard_n_logaritm_n_normalized_y_pca_n_.lib'
     path_lime   = './model/uv6/lime/'
     
-    path_treino = './model/cropped_face_and_parts_frontal_1990f_hu_moments.csv'
-    path_valida = './model/cropped_val_face_frontal_and_parts_4322f_hu_moments.csv'
+    path_treino = './model/data/cropped_face_and_parts_frontal_1990f_hu_moments.csv'
+    path_valida = './model/data/cropped_val_face_frontal_and_parts_4322f_hu_moments.csv'
     
     # Interpretabilidade LIME 
     # interpretabilidade_lime(path_model, path_treino, path_valida)
