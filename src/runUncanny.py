@@ -323,7 +323,7 @@ def interpretabilidade_lime(path_model, path_treino, path_valida):
         frame       = x_valida_merge['path_image'][i].split('\\')[-1].split('.')[0]
         path_show_in_notebook = path_lime+'lime_explanation_'+tipo_modelo+'_'+str(character)+'_'+frame+'.html'
         explanation = explainer.explain_instance(x_valida_merge[features].values[i], modelo.predict)
-        
+        # predict_proba=True
         # Salve a saída em um arquivo HTML
         # explanation.show_in_notebook(open_browser=False, notebook_url=None, port=None, host=None, out_file=path_show_in_notebook)
         explanation.save_to_file(path_show_in_notebook)
