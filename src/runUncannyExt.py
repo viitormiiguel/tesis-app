@@ -160,4 +160,4 @@ if __name__ == '__main__':
     
     dt = dt[['path_image', 'hu0', 'hu1', 'hu2', 'hu3', 'hu4', 'hu5', 'hu6']]
 
-    dt.to_csv('./model/images/test/test_4322f_hu_moments.csv')
+    dt.to_csv('./model/images/test/hu_face_toda_hu_moments.csv')

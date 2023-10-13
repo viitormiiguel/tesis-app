@@ -267,6 +267,10 @@ def interpretabilidade_lime(path_model, path_treino, path_valida):
     normalized  = path_model[path_model.find('normalized') + 11]
     pca         = path_model[path_model.find('pca') + 4]
     degree      = int(path_model[path_model.find('poly') + 5])
+    
+    print(tipo_modelo, f, standard, logaritm, normalized, pca, degree)
+
+    exit()
         
     # carrega modelo
     arquivo_modelo  = jb.load(path_model)
