@@ -25,7 +25,7 @@ def getHeat(imagem):
         
         path = 'E:\\PythonProjects\\tesis-app'
         
-        path_img = path + '\\data\\input\\'
+        path_img = path + '\\data\\output\\retDeep\\'
 
         single_face_img_path = os.path.join(path_img, imagem)
 
@@ -49,20 +49,20 @@ def getHeat(imagem):
             'aus': aus.to_json(orient='records'),
         })
         
-        time.sleep(1)
+        # time.sleep(1)
         
-        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-        mydb = myclient["tesis-app"]
+        # myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+        # mydb = myclient["tesis-app"]
         
-        ## Add image data
-        mycol = mydb["pyFeat"]
-        mycol.insert_many(data)
+        # ## Add image data
+        # mycol = mydb["pyFeat"]
+        # mycol.insert_many(data)
         
     except: 
         return '## Erro ao salvar no MongoDB ##'
     
 if __name__ == '__main__':    
     
-    img = '064_08.jpg'
+    img = '012_08_mesh.png'
     
     ret = getHeat(img)

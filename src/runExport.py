@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 
 import os
 from pathlib import Path
+import aspose.words as aw
 
 def exportData():    
     
@@ -47,6 +48,54 @@ def exportData():
             svg_file.write(exp)
         
 
+def runImg():
+    
+    output = './data/output/retLime/'
+        
+    lista = os.listdir(output)
+    
+    for l in lista:
+    
+        nome = l.split('.')
+    
+        print(nome[0])
+        
+        # SVG file's path
+        fileName = output + l
+
+        # create a document
+        doc = aw.Document()
+
+        # create a document builder and initialize it with document object
+        builder = aw.DocumentBuilder(doc)
+
+        # insert SVG image to document
+        shape = builder.insert_image(fileName)
+        
+        # OPTIONAL
+        # Calculate the maximum width and height and update page settings 
+        # to crop the document to fit the size of the pictures.
+        pageSetup = builder.page_setup
+        
+        if 'pred' in nome[0]:
+            pageSetup.page_width = 150
+        else:
+            pageSetup.page_width = 180
+            
+        pageSetup.page_height = shape.height
+        pageSetup.top_margin = 0
+        pageSetup.left_margin = 0
+        pageSetup.bottom_margin = 0
+        pageSetup.right_margin = 0
+
+        # save as PNG
+        doc.save(output + nome[0] + ".png")
+                
+        # break
+    
+
 if __name__ == '__main__':
     
-    exportData()
+    # exportData()
+    
+    runImg()
