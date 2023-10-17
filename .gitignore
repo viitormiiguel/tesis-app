@@ -2,3 +2,5 @@
 data/output/
 model/uv6/
 model/images/
+model/data/cropped/
+model/data/cropped_val/
