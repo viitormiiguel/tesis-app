@@ -190,3 +190,5 @@ if __name__ == '__main__':
 
     # Interpretabilidade LIME
     interpretabilidade_lime(path_model, path_treino, path_valida)
+    
+    
