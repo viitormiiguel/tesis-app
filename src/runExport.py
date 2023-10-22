@@ -96,6 +96,6 @@ def runImg():
 
 if __name__ == '__main__':
     
-    # exportData()
+    exportData()
     
     runImg()
