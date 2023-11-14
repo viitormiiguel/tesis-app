@@ -8,8 +8,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import OrderedDict
 
+from PIL import Image, ImageDraw
+
+
 # path = 'E:/PythonProjects/Deep3DFaceReconstruction/imgs/posed/fei/'
-path = 'C:/Users/vitor/OneDrive - PUCRS - BR/Dataset 3D Faces/Dataset_Deep3D/posed/men/'
+# path = 'C:/Users/vitor/OneDrive - PUCRS - BR/Dataset 3D Faces/Dataset_DDataset 3D Faces/Dataset_Deep3D/posed/men/ep3D/posed/men/'
 
 CHEEK_IDXS = OrderedDict(
     [
@@ -21,7 +24,7 @@ CHEEK_IDXS = OrderedDict(
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("./model/shape_predictor_68_face_landmarks.dat")
 
-img = cv2.imread(path + '021_08_mesh.png')
+img = cv2.imread('./img/' + '029_08_mesh.png')
 img = imutils.resize(img, width=600)
 
 overlay = img.copy()
@@ -42,8 +45,16 @@ for k,d in enumerate(detections):
         cv2.polylines(overlay,[pts],True,(0,255,0),thickness = 2)
     
     cv2.imshow("Image", overlay)
+    cv2.imwrite('teste.png', overlay)
     cv2.waitKey(0)
     if cv2.waitKey(1) & 0xFF == ord('q'): 
         break
 
 cv2.destroyAllWindows()
+
+image = Image.open('./teste.png')
+width, height = image.size
+center = (int(0.5 * width), int(0.5 * height))
+yellow = (255, 255, 0, 255)
+ImageDraw.floodfill(image, xy=center, value=yellow)
+image.save('teste1.png')
