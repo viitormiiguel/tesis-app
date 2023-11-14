@@ -14,20 +14,20 @@ from PIL import Image, ImageDraw
 # path = 'E:/PythonProjects/Deep3DFaceReconstruction/imgs/posed/fei/'
 # path = 'C:/Users/vitor/OneDrive - PUCRS - BR/Dataset 3D Faces/Dataset_DDataset 3D Faces/Dataset_Deep3D/posed/men/ep3D/posed/men/'
 
-# CHEEK_IDXS = OrderedDict(
-#     [
-#         ("left_cheek", (1,2,3,4,5,48,49,31)),
-#         ("right_cheek", (11,12,13,14,15,35,53,54)),
-#         ("left_eye", (36,37,38,39,40,41)),
-#         ("right_eye", (42, 43,44,45,46,47))
-#     ]
-# )
-
 CHEEK_IDXS = OrderedDict(
     [
-        ("all", (0 , 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 16, 28)),
+        ("left_cheek", (1,2,3,4,5,48,49,31)),
+        ("right_cheek", (11,12,13,14,15,35,53,54)),
+        ("left_eye", (36,37,38,39,40,41)),
+        ("right_eye", (42, 43,44,45,46,47))
     ]
 )
+
+# CHEEK_IDXS = OrderedDict(
+#     [
+#         ("all", (0 , 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 16, 28)),
+#     ]
+# )
 
 
 detector = dlib.get_frontal_face_detector()
