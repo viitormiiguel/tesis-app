@@ -89,6 +89,8 @@ def geraPdf():
     pdf.set_text_color(255, 255, 255)
     pdf.set_x(20)
     pdf.cell(260, 28,'Facial Analysis', 0, 1, 'L')
+
+    
         
     pdf.output('teste_report.pdf')
     
