@@ -16,7 +16,7 @@ detector = Detector(
     facepose_model="img2pose",
 )
 
-path = 'D:\\CG e Real\\Hulk Training Scene  SHE HULK (2022) CLIP 4K\\shehulk\\'
+path = 'D:\\CG e Real\\Hulk Training Scene  SHE HULK (2022) CLIP 4K\\jennifer\\'
 
 for l in os.listdir(path):
     
@@ -39,7 +39,7 @@ for l in os.listdir(path):
     # print(getEmo, emoLabels[getEmo])
     
     src = path + l
-    dst = 'D:\\Orgazine Faces\\SheHulk\\' + emoLabels[getEmo] + '\\' + l
+    dst = 'D:\\Orgazine Faces\\Jennifer\\' + emoLabels[getEmo] + '\\' + l
     
     shutil.copy(src, dst)
     
