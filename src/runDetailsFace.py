@@ -24,9 +24,16 @@ def drawRegiona(imagem, valores, label):
     img = cv2.imread('./img/' + imagem)
     img = imutils.resize(img, width=600)
 
+    # Create output image (untranslated)
+    if '_detail' in imagem:
+        imagedet = img = cv2.imread('./img/' + nome[0] + '_detail.jpg')
+        imagedet = imutils.resize(imagedet, width=600)
+        outClean = imagedet.copy()
+    else:
+        outClean = img.copy()
+
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     mask = np.zeros_like(img, np.uint8)
-    # mask = np.zeros((img.shape[0], img.shape[1]))
 
     detections = detector(gray, 0)
     for k,d in enumerate(detections):
@@ -37,26 +44,21 @@ def drawRegiona(imagem, valores, label):
             pts = np.zeros((len(CHEEK_IDXS[name]), 2), np.int32) 
             
             for i,j in enumerate(CHEEK_IDXS[name]): 
-                pts[i] = [shape.part(j).x, shape.part(j).y]
-
-            # pts = pts.reshape((-1,1,2))            
-            
-            # Create output image (untranslated)
-            outClean = img.copy()
+                pts[i] = [shape.part(j).x, shape.part(j).y]            
             
             # Create mask that defines the polygon of points
             # Red
-            cv2.fillPoly(mask, [pts], (0, 0, 255))
+            # cv2.fillPoly(mask, [pts], (0, 0, 255))
             # Blue
             # cv2.fillPoly(mask, [pts], (255, 51, 51))
+            # White
+            cv2.fillPoly(mask, [pts], (255, 255, 255))
             
             alpha = 0.7
             mascara = mask.astype(bool)
             outClean[mascara] = cv2.addWeighted(img, alpha, mask, 1 - alpha, 0)[mascara]
             
-            cv2.imwrite('./img/' + nome[0] + '_' + str(listas[label]) + '_detail.jpg', outClean)
-            # cv2.waitKey(0)
-            # cv2.destroyAllWindows()
+            cv2.imwrite('./img/' + nome[0] + '_detail.jpg', outClean)
 
 if __name__ == '__main__':
 
@@ -67,16 +69,18 @@ if __name__ == '__main__':
         ("queixo", (4, 5, 6, 7, 8, 9, 10, 11, 12, 54, 55, 56, 57, 58, 59, 60, 48))
     ]
 
-    lista = os.listdir('./img/')
+    lista = os.listdir('./img/cg/')
     
     for i, j in enumerate(parts):
 
-        for l in lista:
+        if 'eyes' in j[0]: 
 
-            if 'detail' not in l and 'mesh' in l:
+            for l in lista:
 
-                drawRegiona(l, j, i)
-             
-        #     break
+                if 'detail' not in l and 'mesh' in l:
+
+                    drawRegiona(l, j, i)
                 
-        # break
+                break
+                    
+            break
