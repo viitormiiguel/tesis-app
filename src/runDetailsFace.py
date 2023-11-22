@@ -10,7 +10,7 @@ from collections import OrderedDict
 
 from PIL import Image, ImageDraw
 
-def drawRegiona(imagem, valores):
+def drawRegiona(imagem, valores, intensidade):
 
     nome = imagem.split('.')
     
@@ -25,12 +25,11 @@ def drawRegiona(imagem, valores):
         imagedet = imutils.resize(imagedet, width=600)
         outClean = imagedet.copy()
     else:
-        outClean = img.copy()
-        
+        outClean = img.copy()        
     
-    for val in valores:
-        
-        CHEEK_IDXS = OrderedDict([val])
+    for m, n in enumerate(valores):
+
+        CHEEK_IDXS = OrderedDict([n])
 
         detector    = dlib.get_frontal_face_detector()
         predictor   = dlib.shape_predictor("./model/shape_predictor_68_face_landmarks.dat")        
@@ -50,12 +49,12 @@ def drawRegiona(imagem, valores):
                     pts[i] = [shape.part(j).x, shape.part(j).y]            
                 
                 # Create mask that defines the polygon of points
-                # Red
-                # cv2.fillPoly(mask, [pts], (0, 0, 255))
-                # Blue
-                # cv2.fillPoly(mask, [pts], (255, 51, 51))
+                if intensidade[m] == -1:
+                    cv2.fillPoly(mask, [pts], (0, 0, 255))
+                if intensidade[m] == 1:
+                    cv2.fillPoly(mask, [pts], (255, 51, 51))
                 # White
-                cv2.fillPoly(mask, [pts], (255, 255, 255))
+                # cv2.fillPoly(mask, [pts], (255, 255, 255))
                 
                 alpha = 0.7
                 mascara = mask.astype(bool)
@@ -78,6 +77,6 @@ if __name__ == '__main__':
     
     for l in lista:
 
-        drawRegiona(l, [parts[0], parts[1]])
+        drawRegiona(l, [parts[0], parts[1]], [-1, 1])
         
         # break
