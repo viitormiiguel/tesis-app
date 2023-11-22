@@ -3,6 +3,7 @@ import dlib
 import cv2
 import os
 import imutils
+import pandas as pd
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,7 +18,7 @@ def drawRegiona(imagem, valores, intensidade):
     listas = ['eye', 'month', 'nose', 'queixo']
     
     img = cv2.imread('./img/cg/' + imagem)
-    img = imutils.resize(img, width=600)
+    # img = imutils.resize(img, width=600)
 
     # Create output image (untranslated)
     if '_detail' in imagem:
@@ -63,6 +64,40 @@ def drawRegiona(imagem, valores, intensidade):
                 cv2.imwrite('./img/annotated/' + nome[0] + '_detail.jpg', outClean)
                 
         # break
+        
+def diffsOpen(image):
+    
+    path = './data/openface/'
+    
+    ## Real                
+    arq     = path + 'real/' + image + '.csv'                    
+    arquivo = pd.read_csv(arq)            
+    valReal = arquivo.iloc[:, 676:693]
+    
+    ## CG                
+    arq     = path + 'cg/' + image + '_mesh.csv'                    
+    arquivo = pd.read_csv(arq)            
+    valCg   = arquivo.iloc[:, 676:693]
+    
+    val1 = valReal.values
+    val2 = valCg.values
+    
+    difs = []
+    for i, j in enumerate(val1[0]):
+        
+        if int(j) > int(val2[0][i]):
+            print(j, val2[0][i], "CG Menor")
+            difs.append('menor')
+            
+        if int(j) < int(val2[0][i]):
+            print(j, val2[0][i], "CG Maior")
+            difs.append('maior')
+            
+        if int(j) == int(val2[0][i]):
+            print(j, val2[0][i], "IGUAL")
+            difs.append('igual')
+    
+    return difs
 
 if __name__ == '__main__':
 
@@ -72,11 +107,15 @@ if __name__ == '__main__':
         ("nose", (3, 13, 14, 15, 28, 1, 2)),
         ("queixo", (4, 5, 6, 7, 8, 9, 10, 11, 12, 54, 55, 56, 57, 58, 59, 60, 48))
     ]
-
+        
+    r = diffsOpen('021_08')
+    
+    print(r)
+    
+    exit()
+    
     lista = os.listdir('./img/cg/')
     
     for l in lista:
 
         drawRegiona(l, [parts[0], parts[1]], [-1, 1])
-        
-        # break
