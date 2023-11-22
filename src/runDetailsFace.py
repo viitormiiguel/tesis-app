@@ -10,18 +10,13 @@ from collections import OrderedDict
 
 from PIL import Image, ImageDraw
 
-def drawRegiona(imagem, valores, label):
+def drawRegiona(imagem, valores):
 
     nome = imagem.split('.')
     
     listas = ['eye', 'month', 'nose', 'queixo']
-
-    CHEEK_IDXS = OrderedDict([valores])
-
-    detector    = dlib.get_frontal_face_detector()
-    predictor   = dlib.shape_predictor("./model/shape_predictor_68_face_landmarks.dat")
-
-    img = cv2.imread('./img/' + imagem)
+    
+    img = cv2.imread('./img/cg/' + imagem)
     img = imutils.resize(img, width=600)
 
     # Create output image (untranslated)
@@ -31,34 +26,44 @@ def drawRegiona(imagem, valores, label):
         outClean = imagedet.copy()
     else:
         outClean = img.copy()
-
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    mask = np.zeros_like(img, np.uint8)
-
-    detections = detector(gray, 0)
-    for k,d in enumerate(detections):
         
-        shape = predictor(gray, d)
-        for (_, name) in enumerate(CHEEK_IDXS.keys()):
+    
+    for val in valores:
+        
+        CHEEK_IDXS = OrderedDict([val])
+
+        detector    = dlib.get_frontal_face_detector()
+        predictor   = dlib.shape_predictor("./model/shape_predictor_68_face_landmarks.dat")        
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        mask = np.zeros_like(img, np.uint8)
+
+        detections = detector(gray, 0)
+        for k,d in enumerate(detections):
             
-            pts = np.zeros((len(CHEEK_IDXS[name]), 2), np.int32) 
-            
-            for i,j in enumerate(CHEEK_IDXS[name]): 
-                pts[i] = [shape.part(j).x, shape.part(j).y]            
-            
-            # Create mask that defines the polygon of points
-            # Red
-            # cv2.fillPoly(mask, [pts], (0, 0, 255))
-            # Blue
-            # cv2.fillPoly(mask, [pts], (255, 51, 51))
-            # White
-            cv2.fillPoly(mask, [pts], (255, 255, 255))
-            
-            alpha = 0.7
-            mascara = mask.astype(bool)
-            outClean[mascara] = cv2.addWeighted(img, alpha, mask, 1 - alpha, 0)[mascara]
-            
-            cv2.imwrite('./img/' + nome[0] + '_detail.jpg', outClean)
+            shape = predictor(gray, d)
+            for (_, name) in enumerate(CHEEK_IDXS.keys()):
+                
+                pts = np.zeros((len(CHEEK_IDXS[name]), 2), np.int32) 
+                
+                for i,j in enumerate(CHEEK_IDXS[name]): 
+                    pts[i] = [shape.part(j).x, shape.part(j).y]            
+                
+                # Create mask that defines the polygon of points
+                # Red
+                # cv2.fillPoly(mask, [pts], (0, 0, 255))
+                # Blue
+                # cv2.fillPoly(mask, [pts], (255, 51, 51))
+                # White
+                cv2.fillPoly(mask, [pts], (255, 255, 255))
+                
+                alpha = 0.7
+                mascara = mask.astype(bool)
+                outClean[mascara] = cv2.addWeighted(img, alpha, mask, 1 - alpha, 0)[mascara]
+                
+                cv2.imwrite('./img/annotated/' + nome[0] + '_detail.jpg', outClean)
+                
+        # break
 
 if __name__ == '__main__':
 
@@ -71,16 +76,8 @@ if __name__ == '__main__':
 
     lista = os.listdir('./img/cg/')
     
-    for i, j in enumerate(parts):
+    for l in lista:
 
-        if 'eyes' in j[0]: 
-
-            for l in lista:
-
-                if 'detail' not in l and 'mesh' in l:
-
-                    drawRegiona(l, j, i)
-                
-                break
-                    
-            break
+        drawRegiona(l, [parts[0], parts[1]])
+        
+        # break
