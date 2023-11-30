@@ -50,6 +50,6 @@ def midpoint(p1, p2):
 
 if __name__ == '__main__':
     
-    path = './data/input/'
+    path = './test/footage/id1/'
     
     createTxtDeep(path)
