@@ -1,12 +1,18 @@
 
 # Step 1: Import the all necessary libraries and SDK commands.
 import os
+import cv2
+import pymongo
+import numpy as np
+
+from urllib.request import urlopen
+
 import boto3
 from botocore.client import Config
-import cv2
-from urllib.request import urlopen
-import numpy as np
 from boto3.s3.transfer import S3Transfer
+
+from random_object_id import generate
+from bson.objectid import ObjectId
 
 ## Digital token
 # dop_v1_58d842b32c192e6294ace82e6edaca2cc954b9071bee5b03062a9897e11c13c3
@@ -38,19 +44,43 @@ def viewFile(path):
         
     return ''
         
-def uploadFiles():    
+def uploadFiles(origin, destiny):
     
-    transfer = S3Transfer(client)
-    
-    # Uploads a file called 'name-of-file' to your Space called 'name-of-space'
-    # Creates a new-folder and the file's final name is defined as 'name-of-file' 
-    transfer.upload_file('E:/PythonProjects/tesis-app/test/footage/id2/footage1.jpg', bucketname, 'input/id2'+"/"+'footage1.jpg')
+    try:
+        
+        transfer = S3Transfer(client)    
+        filename = origin.split('/')
+        
+        # Uploads a file called 'name-of-file' to your Space called 'name-of-space'
+        # Creates a new-folder and the file's final name is defined as 'name-of-file' 
+        transfer.upload_file(origin, bucketname, destiny + "/" + filename[-1])
 
-    #This makes the file you are have specifically uploaded public by default. 
-    response = client.put_object_acl(ACL='public-read', Bucket=bucketname, Key="%s/%s" % ('input/id2', 'footage1.jpg'))
-
-    
-    return ''
+        # This makes the file you are have specifically uploaded public by default. 
+        response = client.put_object_acl(ACL='public-read', Bucket=bucketname, Key="%s/%s" % (destiny, filename[-1]))
+        print(response)
+        urlname = 'https://faces-app.nyc3.cdn.digitaloceanspaces.com/' + destiny + "/" + filename[-1]
+                
+        ## ================================================================================================================
+                
+        data = []    
+        data.append({
+            'imageId': ObjectId(generate()),
+            'personalId': 'teste',
+            'image': filename[-1],
+            'imgeurl': urlname,
+            'type': 'real',
+        })        
+        
+        ## Save images infos MongoDB
+        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+        mydb = myclient["tesis-app"]
+        
+        ## Add image data
+        mycol = mydb["images"]
+        mycol.insert_many(data)
+        
+    except:        
+        return 'Erro ao salvar imagem no Bucket!'
 
 if __name__ == '__main__':
     
@@ -70,4 +100,4 @@ if __name__ == '__main__':
     
     # viewFile('input/id1/footage1.jpg')
     
-    uploadFiles()
+    uploadFiles('E:/PythonProjects/tesis-app/test/footage/id3/footage3.jpg', 'input/id3')

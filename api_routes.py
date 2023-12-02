@@ -61,6 +61,16 @@ def getImage():
         print('teste')        
     except:
         return '## Erro ao executar OpenFace ##'
+ 
+## Save Image   
+@app.route('/saveImage', method=['POST'])
+def saveImage():
+    
+    try:        
+        print('teste')        
+    except:
+        return '## Erro ao executar OpenFace ##'
+    
 
 if __name__ == '__main__':
     
