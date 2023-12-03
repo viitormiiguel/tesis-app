@@ -100,4 +100,4 @@ if __name__ == '__main__':
     
     # viewFile('input/id1/footage1.jpg')
     
-    uploadFiles('E:/PythonProjects/tesis-app/test/footage/id3/footage3.jpg', 'input/id3')
+    # uploadFiles('E:/PythonProjects/tesis-app/test/footage/id3/footage3.jpg', 'input/id3')
