@@ -17,12 +17,12 @@ def render3D(caminho):
         print(l)
         
         if '.obj' in l:
-            print(caminho + l)
+            # print(caminho + l)
             m = Mesh.from_file(caminho + l, color=(0.8, 0.8, 0.8, 1.0))
             m.to_unit_cube()
             
             nome = l.split('.')            
-            print(nome)
+
             render(
                 [m],
                 n_frames=200,
@@ -30,7 +30,7 @@ def render3D(caminho):
                 camera_position=(0.0, 0.15, 1.5),
                 up_vector=(0, 1, 0),
                 behaviours=[
-                    SaveFrames(caminho + nome[0] + '.png')
+                    SaveFrames(caminho + nome[0] + '_deep.png')
                 ]
             )
 
