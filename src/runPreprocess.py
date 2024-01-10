@@ -50,6 +50,6 @@ def midpoint(p1, p2):
 
 if __name__ == '__main__':
     
-    path = './test/footage/id1/'
+    path = 'E:/PythonProjects/tesis-view/images/pro/'
     
     createTxtDeep(path)

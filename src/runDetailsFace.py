@@ -108,11 +108,11 @@ if __name__ == '__main__':
         ("queixo", (4, 5, 6, 7, 8, 9, 10, 11, 12, 54, 55, 56, 57, 58, 59, 60, 48))
     ]
         
-    r = diffsOpen('021_08')
+    # r = diffsOpen('021_08')
     
-    print(r)
+    # print(r)
     
-    exit()
+    # exit()
     
     lista = os.listdir('./img/cg/')
     

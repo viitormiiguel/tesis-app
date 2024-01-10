@@ -54,7 +54,7 @@ def geraPdf():
         def footer(self):
             if self.page_no()!=1:
                 self.set_xy(0,-8)
-                self.image('./resource/header_capa.png')
+                # self.image('./resource/header_capa.png')
             
         def pagina(self, label):
             self.add_page()
@@ -66,12 +66,12 @@ def geraPdf():
 
         def final(self):
             self.add_page()
-            self.image('./fontes/barra_v.png', x = 73, y = 20, w = 3.5, h = 8)
+            # self.image('./fontes/barra_v.png', x = 73, y = 20, w = 3.5, h = 8)
             self.set_font("Poppins", "", 22)
             pdf.set_text_color(0, 0, 0)
             self.set_xy(75,21)
             self.cell(0, 6,'agradecemos', 0, 1, 'L')
-            self.image('./fontes/logo+selo.png', x = 52.5, y =56,w=100)
+            # self.image('./fontes/logo+selo.png', x = 52.5, y =56,w=100)
             # self.image('fontes/dicas.png',15,100,w=180)
             
     # Cria pdf com dados
@@ -90,8 +90,164 @@ def geraPdf():
     pdf.set_x(20)
     pdf.cell(260, 28,'Facial Analysis', 0, 1, 'L')
 
+    pdf.set_font("Poppins", "", 12)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(20, 38)
+    pdf.set_text_color(0, 113, 192)
+    pdf.multi_cell(170,5,"Capture 1 (Real Face)", 0,'L')
+    pdf.set_font("Poppins", "", 10)
     
+    pdf.image('E:/PythonProjects/tesis-view/images/pro/crop1.png', x=22, y=50, w=28)
+    
+    pdf.set_text_color(0, 0, 0)    
+    pdf.set_xy(60, 38)
+    pdf.multi_cell(170, 30,"Facial Information:", 0,'L')
+    
+    pdf.set_font("Poppins", "", 8)
+    pdf.set_xy(60, 60)
+    pdf.multi_cell(170,5,"Emotion - ", 0,'L')
+    pdf.set_xy(60, 68)
+    pdf.multi_cell(170,5,"Confident - ", 0,'L')
+    pdf.set_xy(60, 76)
+    pdf.multi_cell(170,5,"Intensity - ", 0,'L')
+    
+    pdf.set_font("Poppins", "", 10)
+    pdf.set_xy(120, 38)
+    pdf.multi_cell(170, 30,"Facial Action Units:", 0,'L')
+    
+    pdf.set_font("Poppins", "", 8)
+    pdf.set_xy(120, 60)
+    pdf.multi_cell(170,5,"AU01 ", 0,'L')
+    pdf.set_xy(120, 65)
+    pdf.multi_cell(170,5,"AU02 ", 0,'L')
+    pdf.set_xy(120, 70)
+    pdf.multi_cell(170,5,"AU04 ", 0,'L')
+    pdf.set_xy(120, 75)
+    pdf.multi_cell(170,5,"AU05 ", 0,'L')
+    pdf.set_xy(120, 80)
+    pdf.multi_cell(170,5,"AU06 ", 0,'L')
+    pdf.set_xy(120, 85)
+    pdf.multi_cell(170,5,"AU07 ", 0,'L')
+    
+    pdf.set_xy(150, 60)
+    pdf.multi_cell(170,5,"AU09 ", 0,'L')
+    pdf.set_xy(150, 65)
+    pdf.multi_cell(170,5,"AU10 ", 0,'L')
+    pdf.set_xy(150, 70)
+    pdf.multi_cell(170,5,"AU12 ", 0,'L')
+    pdf.set_xy(150, 75)
+    pdf.multi_cell(170,5,"AU14 ", 0,'L')
+    pdf.set_xy(150, 80)
+    pdf.multi_cell(170,5,"AU15 ", 0,'L')
+    pdf.set_xy(150, 85)
+    pdf.multi_cell(170,5,"AU17 ", 0,'L')
+    
+    pdf.set_xy(180, 60)
+    pdf.multi_cell(170,5,"AU20 ", 0,'L')
+    pdf.set_xy(180, 65)
+    pdf.multi_cell(170,5,"AU23 ", 0,'L')
+    pdf.set_xy(180, 70)
+    pdf.multi_cell(170,5,"AU25 ", 0,'L')
+    pdf.set_xy(180, 75)
+    pdf.multi_cell(170,5,"AU26 ", 0,'L')
+    pdf.set_xy(180, 80)
+    pdf.multi_cell(170,5,"AU28 ", 0,'L')
+    pdf.set_xy(180, 85)
+    pdf.multi_cell(170,5,"AU45 ", 0,'L')
+    
+    # ==========================================
+    
+    pdf.set_font("Poppins", "", 12)
+    pdf.set_xy(20, 97)
+    pdf.set_text_color(0, 113, 192)
+    pdf.multi_cell(170,5,"Model Deep3D", 0,'L')
+    pdf.set_font("Poppins", "", 10)
+    
+    pdf.image('E:/PythonProjects/tesis-view/output/deep3d/pro/happy1_mesh_deep.png', x=22, y=110, w=28) 
+    
+    pdf.set_font("Poppins", "", 7)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(60, 110)
+    pdf.multi_cell(170,5,"AU01 ", 0,'L')
+    pdf.set_xy(60, 115)
+    pdf.multi_cell(170,5,"AU02 ", 0,'L')
+    pdf.set_xy(60, 120)
+    pdf.multi_cell(170,5,"AU04 ", 0,'L')
+    pdf.set_xy(60, 125)
+    pdf.multi_cell(170,5,"AU05 ", 0,'L')
+    pdf.set_xy(60, 130)
+    pdf.multi_cell(170,5,"AU06 ", 0,'L')
+    
+    
+    pdf.set_xy(90, 110)
+    pdf.multi_cell(170,5,"AU07 ", 0,'L')    
+    pdf.set_xy(90, 115)
+    pdf.multi_cell(170,5,"AU09 ", 0,'L')
+    pdf.set_xy(90, 120)
+    pdf.multi_cell(170,5,"AU10 ", 0,'L')
+    pdf.set_xy(90, 125)
+    pdf.multi_cell(170,5,"AU12 ", 0,'L')    
+    pdf.set_xy(90, 130)
+    pdf.multi_cell(170,5,"AU14 ", 0,'L')
+    
+    pdf.set_xy(120, 110)
+    pdf.multi_cell(170,5,"AU15 ", 0,'L')
+    pdf.set_xy(120, 115)
+    pdf.multi_cell(170,5,"AU17 ", 0,'L')
+    pdf.set_xy(120, 120)
+    pdf.multi_cell(170,5,"AU20 ", 0,'L')
+    pdf.set_xy(120, 125)
+    pdf.multi_cell(170,5,"AU23 ", 0,'L')
+    
+    pdf.set_xy(150, 110)
+    pdf.multi_cell(170,5,"AU25 ", 0,'L')    
+    pdf.set_xy(150, 115)
+    pdf.multi_cell(170,5,"AU26 ", 0,'L')
+    pdf.set_xy(150, 120)
+    pdf.multi_cell(170,5,"AU28 ", 0,'L')
+    pdf.set_xy(150, 125)
+    pdf.multi_cell(170,5,"AU45 ", 0,'L')
+    
+    pdf.set_font("Poppins", "", 12)
+    pdf.set_xy(20, 145)
+    pdf.set_text_color(0, 113, 192)
+    pdf.multi_cell(170,5,"Discomfort Level", 0,'L')
+    pdf.set_font("Poppins", "", 10)
+    
+    pdf.set_font("Poppins", "", 10)
+    pdf.set_text_color(0, 0, 0)    
+    pdf.set_xy(20, 145)
+    pdf.multi_cell(170, 30,"Analysis 1", 0,'L')
+    
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_font("Poppins", "", 8)
+    pdf.set_xy(20,165)
+    pdf.multi_cell(80,5,'As opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years.', 0,'L')
         
+    pdf.image('E:/PythonProjects/tesis-app/img/annotated/happy1_mesh_deep_detail.jpg', x=20, y=220, w=67)
+    
+    pdf.image('E:/PythonProjects/tesis-app/data/output/retLime/8__exp.png', x=100, y=160, w=72)
+    
+    pdf.set_font("Poppins", "", 10)
+    pdf.set_text_color(0, 0, 0)    
+    pdf.set_xy(110, 205)
+    pdf.multi_cell(170, 30,"Analysis 2", 0,'L')
+    
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_font("Poppins", "", 8)
+    pdf.set_xy(110,225)
+    pdf.multi_cell(80,5,'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it hasa more-or-less normal distribution of letters.', 0,'L')
+    
+    pdf.image('E:/PythonProjects/tesis-app/data/output/retLime/8__pred.png', x=115, y=260, w=57)    
+    
+    # pdf.set_font("Poppins", "", 12)
+    # pdf.set_xy(20, 190)
+    # pdf.set_text_color(0, 113, 192)
+    # pdf.multi_cell(170,5,"Model DECA", 0,'L')
+    # pdf.set_font("Poppins", "", 10)
+    
+    # pdf.image('E:/PythonProjects/tesis-view/output/deca/pro/happy1/happy1_rendered_images.jpg', x=25, y=200, w=25)
+            
     pdf.output('teste_report.pdf')
     
     return ''
