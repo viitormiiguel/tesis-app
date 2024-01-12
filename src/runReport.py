@@ -7,6 +7,13 @@ from fpdf import FPDF
 
 def geraPdf():
     
+    ret = getValores()
+    for r in ret:
+        print(r)
+    
+    pathReal = 'E:/PythonProjects/tesis-view/images/'
+    pathOutput = 'E:/PythonProjects/tesis-view/output/'
+    
     class PDF(FPDF):
                 
         def capa(self):
@@ -81,182 +88,240 @@ def geraPdf():
     pdf.alias_nb_pages()
     pdf.capa()
     
-    ######################################### Apresentacao ##################################################
-    pdf.pagina('Olá time')
-    pdf.image('./resource/header-faces.png', x = 0, y = 0, w = 260, h = 26)
-    pdf.set_fill_color(236, 236, 236)
-    pdf.set_xy(0,0)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_x(20)
-    pdf.cell(260, 28,'Facial Analysis', 0, 1, 'L')
+    ## Initialize with the photos of real faces
+    for i, v in enumerate(ret[1]):
+    
+        ######################################### Apresentacao ##################################################
+        pdf.pagina('Olá time')
+        pdf.image('./resource/header-faces.png', x = 0, y = 0, w = 260, h = 26)
+        pdf.set_fill_color(236, 236, 236)
+        pdf.set_xy(0,0)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_x(20)
+        pdf.cell(260, 28,'Facial Analysis', 0, 1, 'L')
 
-    ######################################### CAPTURE 1 ##################################################
-    pdf.set_font("Poppins", "", 12)
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(20, 38)
-    pdf.set_text_color(0, 113, 192)
-    pdf.multi_cell(170,5,"Capture 1 (Real Face)", 0,'L')
-    pdf.set_font("Poppins", "", 10)
-    
-    pdf.image('E:/PythonProjects/tesis-view/images/pro/crop1.png', x=22, y=50, w=28)
-    
-    pdf.set_text_color(0, 0, 0)    
-    pdf.set_xy(60, 38)
-    pdf.multi_cell(170, 30,"Facial Information:", 0,'L')
-    
-    pdf.set_font("Poppins", "", 8)
-    pdf.set_xy(60, 60)
-    pdf.multi_cell(170,5,"Emotion - HAPPINESS", 0,'L')
-    pdf.set_xy(60, 68)
-    pdf.multi_cell(170,5,"Confident - 95%", 0,'L')
-    pdf.set_xy(60, 76)
-    pdf.multi_cell(170,5,"Intensity - 76%", 0,'L')
-    
-    pdf.set_font("Poppins", "", 10)
-    pdf.set_xy(120, 38)
-    pdf.multi_cell(170, 30,"Facial Action Units:", 0,'L')
-    
-    pdf.set_font("Poppins", "", 8)
-    pdf.set_xy(120, 60)
-    pdf.multi_cell(170,5,"AU01 - 1.0", 0,'L')
-    pdf.set_xy(120, 65)
-    pdf.multi_cell(170,5,"AU02 - 1.3", 0,'L')
-    pdf.set_xy(120, 70)
-    pdf.multi_cell(170,5,"AU04 - 0.6", 0,'L')
-    pdf.set_xy(120, 75)
-    pdf.multi_cell(170,5,"AU05 - 0.7", 0,'L')
-    pdf.set_xy(120, 80)
-    pdf.multi_cell(170,5,"AU06 - 4.1", 0,'L')
-    pdf.set_xy(120, 85)
-    pdf.multi_cell(170,5,"AU07 - 2.0", 0,'L')
-    
-    pdf.set_xy(150, 60)
-    pdf.multi_cell(170,5,"AU09 - 1.1", 0,'L')
-    pdf.set_xy(150, 65)
-    pdf.multi_cell(170,5,"AU10 - 1.7", 0,'L')
-    pdf.set_xy(150, 70)
-    pdf.multi_cell(170,5,"AU12 - 4.8", 0,'L')
-    pdf.set_xy(150, 75)
-    pdf.multi_cell(170,5,"AU14 - 1.1", 0,'L')
-    pdf.set_xy(150, 80)
-    pdf.multi_cell(170,5,"AU15 - 0.0", 0,'L')
-    pdf.set_xy(150, 85)
-    pdf.multi_cell(170,5,"AU17 - 0.0", 0,'L')
-    
-    pdf.set_xy(180, 60)
-    pdf.multi_cell(170,5,"AU20 - 1.1", 0,'L')
-    pdf.set_xy(180, 65)
-    pdf.multi_cell(170,5,"AU23 - 1.9", 0,'L')
-    pdf.set_xy(180, 70)
-    pdf.multi_cell(170,5,"AU25 - 2.1", 0,'L')
-    pdf.set_xy(180, 75)
-    pdf.multi_cell(170,5,"AU26 - 2.2", 0,'L')
-    pdf.set_xy(180, 80)
-    pdf.multi_cell(170,5,"AU28 - 1.1", 0,'L')
-    pdf.set_xy(180, 85)
-    pdf.multi_cell(170,5,"AU45 - 0.0", 0,'L')
-    
-    ######################################### MODEL DEEP3D ##################################################
-    
-    pdf.set_font("Poppins", "", 12)
-    pdf.set_xy(20, 97)
-    pdf.set_text_color(0, 113, 192)
-    pdf.multi_cell(170,5,"Model Deep3D", 0,'L')
-    pdf.set_font("Poppins", "", 10)
-    
-    pdf.image('E:/PythonProjects/tesis-view/output/deep3d/pro/happy1_mesh_deep.png', x=22, y=110, w=28) 
-    
-    pdf.set_font("Poppins", "", 7)
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(60, 110)
-    pdf.multi_cell(170,5,"AU01 - 0.8", 0,'L')
-    pdf.set_xy(60, 115)
-    pdf.multi_cell(170,5,"AU02 - 0.9", 0,'L')
-    pdf.set_xy(60, 120)
-    pdf.multi_cell(170,5,"AU04 - 0.0", 0,'L')
-    pdf.set_xy(60, 125)
-    pdf.multi_cell(170,5,"AU05 - 0.1", 0,'L')
-    pdf.set_xy(60, 130)
-    pdf.multi_cell(170,5,"AU06 - 3.2", 0,'L')
-    pdf.image('./resource/abaixo.png', x=74, y=130.5, w=4)
-    
-    
-    pdf.set_xy(90, 110)
-    pdf.multi_cell(170,5,"AU07 - 1.2", 0,'L')    
-    pdf.set_xy(90, 115)
-    pdf.multi_cell(170,5,"AU09 - 0.5", 0,'L')
-    pdf.set_xy(90, 120)
-    pdf.multi_cell(170,5,"AU10 - 1.1", 0,'L')
-    pdf.set_xy(90, 125)
-    pdf.multi_cell(170,5,"AU12 - 2.9", 0,'L')
-    pdf.image('./resource/abaixo.png', x=104, y=125.5, w=4)
-    pdf.set_xy(90, 130)
-    pdf.multi_cell(170,5,"AU14 - 0.2", 0,'L')
-    
-    pdf.set_xy(120, 110)
-    pdf.multi_cell(170,5,"AU15 - 0.0", 0,'L')
-    pdf.set_xy(120, 115)
-    pdf.multi_cell(170,5,"AU17 - 0.0", 0,'L')
-    pdf.set_xy(120, 120)
-    pdf.multi_cell(170,5,"AU20 - 0.6", 0,'L')
-    pdf.set_xy(120, 125)
-    pdf.multi_cell(170,5,"AU23 - 1.1", 0,'L')
-    
-    pdf.set_xy(150, 110)
-    pdf.multi_cell(170,5,"AU25 - 1.4", 0,'L')    
-    pdf.set_xy(150, 115)
-    pdf.multi_cell(170,5,"AU26 - 1.8", 0,'L')
-    pdf.set_xy(150, 120)
-    pdf.multi_cell(170,5,"AU28 - 0.0", 0,'L')
-    pdf.set_xy(150, 125)
-    pdf.multi_cell(170,5,"AU45 - 0.0", 0,'L')
-    
-    ######################################### DISCOMFORT LEVEL ##################################################
-    
-    pdf.set_font("Poppins", "", 12)
-    pdf.set_xy(20, 145)
-    pdf.set_text_color(0, 113, 192)
-    pdf.multi_cell(170,5,"Discomfort Level", 0,'L')
-    pdf.set_font("Poppins", "", 10)
-    
-    pdf.set_font("Poppins", "", 10)
-    pdf.set_text_color(0, 0, 0)    
-    pdf.set_xy(20, 145)
-    pdf.multi_cell(170, 30,"Analysis 1", 0,'L')
-    
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_font("Poppins", "", 8)
-    pdf.set_xy(20,165)
-    pdf.multi_cell(80,5,'As opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years.', 0,'L')
+        ######################################### CAPTURE 1 ##################################################
+        pdf.set_font("Poppins", "", 12)
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_xy(20, 38)
+        pdf.set_text_color(0, 113, 192)
+        pdf.multi_cell(170,5,"Capture 1 (Real Face)", 0,'L')
+        pdf.set_font("Poppins", "", 10)
         
-    pdf.image('E:/PythonProjects/tesis-app/img/annotated/happy1_mesh_deep_detail.jpg', x=20, y=220, w=67)
-    
-    pdf.image('E:/PythonProjects/tesis-app/data/output/retLime/8__exp.png', x=100, y=160, w=72)
-    
-    pdf.set_font("Poppins", "", 10)
-    pdf.set_text_color(0, 0, 0)    
-    pdf.set_xy(110, 205)
-    pdf.multi_cell(170, 30,"Analysis 2", 0,'L')
-    
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_font("Poppins", "", 8)
-    pdf.set_xy(110,225)
-    pdf.multi_cell(80,5,'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it hasa more-or-less normal distribution of letters.', 0,'L')
-    
-    pdf.image('E:/PythonProjects/tesis-app/data/output/retLime/8__pred.png', x=115, y=260, w=57)    
-    
-    # pdf.set_font("Poppins", "", 12)
-    # pdf.set_xy(20, 190)
-    # pdf.set_text_color(0, 113, 192)
-    # pdf.multi_cell(170,5,"Model DECA", 0,'L')
-    # pdf.set_font("Poppins", "", 10)
-    
-    # pdf.image('E:/PythonProjects/tesis-view/output/deca/pro/happy1/happy1_rendered_images.jpg', x=25, y=200, w=25)
+        pdf.image(str(v), x=22, y=50, w=28)
+        
+        pdf.set_text_color(0, 0, 0)    
+        pdf.set_xy(60, 38)
+        pdf.multi_cell(170, 30,"Facial Information:", 0,'L')
+        
+        pdf.set_font("Poppins", "", 8)
+        pdf.set_xy(60, 60)
+        pdf.multi_cell(170,5,"Emotion - HAPPINESS", 0,'L')
+        pdf.set_xy(60, 68)
+        pdf.multi_cell(170,5,"Confident - 95%", 0,'L')
+        pdf.set_xy(60, 76)
+        pdf.multi_cell(170,5,"Emotion's Intensity - 76%", 0,'L')
+        pdf.set_xy(60, 84)
+        pdf.multi_cell(170,5,"AUs Intensity - 76%", 0,'L')
+        
+        pdf.set_font("Poppins", "", 10)
+        pdf.set_xy(120, 38)
+        pdf.multi_cell(170, 30,"Facial Action Units:", 0,'L')
+        
+        pdf.set_font("Poppins", "", 8)
+        pdf.set_xy(120, 60)
+        pdf.multi_cell(170,5,"AU01 - 1.0", 0,'L')
+        pdf.set_xy(120, 65)
+        pdf.multi_cell(170,5,"AU02 - 1.3", 0,'L')
+        pdf.set_xy(120, 70)
+        pdf.multi_cell(170,5,"AU04 - 0.6", 0,'L')
+        pdf.set_xy(120, 75)
+        pdf.multi_cell(170,5,"AU05 - 0.7", 0,'L')
+        pdf.set_xy(120, 80)
+        pdf.multi_cell(170,5,"AU06 - 4.1", 0,'L')
+        pdf.set_xy(120, 85)
+        pdf.multi_cell(170,5,"AU07 - 2.0", 0,'L')
+        
+        pdf.set_xy(150, 60)
+        pdf.multi_cell(170,5,"AU09 - 1.1", 0,'L')
+        pdf.set_xy(150, 65)
+        pdf.multi_cell(170,5,"AU10 - 1.7", 0,'L')
+        pdf.set_xy(150, 70)
+        pdf.multi_cell(170,5,"AU12 - 4.8", 0,'L')
+        pdf.set_xy(150, 75)
+        pdf.multi_cell(170,5,"AU14 - 1.1", 0,'L')
+        pdf.set_xy(150, 80)
+        pdf.multi_cell(170,5,"AU15 - 0.0", 0,'L')
+        pdf.set_xy(150, 85)
+        pdf.multi_cell(170,5,"AU17 - 0.0", 0,'L')
+        
+        pdf.set_xy(180, 60)
+        pdf.multi_cell(170,5,"AU20 - 1.1", 0,'L')
+        pdf.set_xy(180, 65)
+        pdf.multi_cell(170,5,"AU23 - 1.9", 0,'L')
+        pdf.set_xy(180, 70)
+        pdf.multi_cell(170,5,"AU25 - 2.1", 0,'L')
+        pdf.set_xy(180, 75)
+        pdf.multi_cell(170,5,"AU26 - 2.2", 0,'L')
+        pdf.set_xy(180, 80)
+        pdf.multi_cell(170,5,"AU28 - 1.1", 0,'L')
+        pdf.set_xy(180, 85)
+        pdf.multi_cell(170,5,"AU45 - 0.0", 0,'L')
+        
+        ######################################### MODEL DEEP3D ##################################################
+        pdf.set_font("Poppins", "", 12)
+        pdf.set_xy(20, 97)
+        pdf.set_text_color(0, 113, 192)
+        pdf.multi_cell(170,5,"Model Deep3D", 0,'L')    
+        pdf.image(str(ret[2][i]), x=22, y=107, w=28) 
+        
+        pdf.set_xy(80, 97)
+        pdf.set_text_color(0, 113, 192)
+        pdf.multi_cell(170,5,"Model Deca", 0,'L')    
+        pdf.image(str(ret[3][i]), x=82, y=110, w=23) 
+        
+        pdf.set_xy(140, 97)
+        pdf.set_text_color(0, 113, 192)
+        pdf.multi_cell(170,5,"Model Emoca", 0,'L')    
+        pdf.image('E:/PythonProjects/tesis-view/output/deep3d/pro/happy1_mesh_deep.png', x=140, y=107, w=28) 
+        
+        # pdf.set_font("Poppins", "", 7)
+        # pdf.set_text_color(0, 0, 0)
+        # pdf.set_xy(60, 110)
+        # pdf.multi_cell(170,5,"AU01 - 0.8", 0,'L')
+        # pdf.set_xy(60, 115)
+        # pdf.multi_cell(170,5,"AU02 - 0.9", 0,'L')
+        # pdf.set_xy(60, 120)
+        # pdf.multi_cell(170,5,"AU04 - 0.0", 0,'L')
+        # pdf.set_xy(60, 125)
+        # pdf.multi_cell(170,5,"AU05 - 0.1", 0,'L')
+        # pdf.set_xy(60, 130)
+        # pdf.multi_cell(170,5,"AU06 - 3.2", 0,'L')
+        # pdf.image('./resource/abaixo.png', x=74, y=130.5, w=4)
+        
+        # pdf.set_xy(90, 110)
+        # pdf.multi_cell(170,5,"AU07 - 1.2", 0,'L')    
+        # pdf.set_xy(90, 115)
+        # pdf.multi_cell(170,5,"AU09 - 0.5", 0,'L')
+        # pdf.set_xy(90, 120)
+        # pdf.multi_cell(170,5,"AU10 - 1.1", 0,'L')
+        # pdf.set_xy(90, 125)
+        # pdf.multi_cell(170,5,"AU12 - 2.9", 0,'L')
+        # pdf.image('./resource/abaixo.png', x=104, y=125.5, w=4)
+        # pdf.set_xy(90, 130)
+        # pdf.multi_cell(170,5,"AU14 - 0.2", 0,'L')
+        
+        # pdf.set_xy(120, 110)
+        # pdf.multi_cell(170,5,"AU15 - 0.0", 0,'L')
+        # pdf.set_xy(120, 115)
+        # pdf.multi_cell(170,5,"AU17 - 0.0", 0,'L')
+        # pdf.set_xy(120, 120)
+        # pdf.multi_cell(170,5,"AU20 - 0.6", 0,'L')
+        # pdf.set_xy(120, 125)
+        # pdf.multi_cell(170,5,"AU23 - 1.1", 0,'L')
+        
+        # pdf.set_xy(150, 110)
+        # pdf.multi_cell(170,5,"AU25 - 1.4", 0,'L')    
+        # pdf.set_xy(150, 115)
+        # pdf.multi_cell(170,5,"AU26 - 1.8", 0,'L')
+        # pdf.set_xy(150, 120)
+        # pdf.multi_cell(170,5,"AU28 - 0.0", 0,'L')
+        # pdf.set_xy(150, 125)
+        # pdf.multi_cell(170,5,"AU45 - 0.0", 0,'L')
+        
+        ######################################### DISCOMFORT LEVEL ##################################################
+        
+        pdf.set_font("Poppins", "", 12)
+        pdf.set_xy(20, 145)
+        pdf.set_text_color(0, 113, 192)
+        pdf.multi_cell(170,5,"Score Comfort Perception Human", 0,'L')
+        pdf.set_font("Poppins", "", 10)
+        
+        pdf.set_font("Poppins", "", 10)
+        pdf.set_text_color(0, 0, 0)    
+        pdf.set_xy(20, 145)
+        pdf.multi_cell(170, 30,"Analysis 1", 0,'L')
+        
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("Poppins", "", 8)
+        pdf.set_xy(20,165)
+        pdf.multi_cell(80,5,'As opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years.', 0,'L')
+            
+        pdf.image(str(ret[4][i]), x=20, y=210, w=67)
+        
+        pdf.image('E:/PythonProjects/tesis-app/data/output/retLime/8__exp.png', x=100, y=160, w=72)
+        
+        pdf.set_font("Poppins", "", 10)
+        pdf.set_text_color(0, 0, 0)    
+        pdf.set_xy(110, 205)
+        pdf.multi_cell(170, 30,"Analysis 2", 0,'L')
+        
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("Poppins", "", 8)
+        pdf.set_xy(110,225)
+        pdf.multi_cell(80,5,'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it hasa more-or-less normal distribution of letters.', 0,'L')
+        
+        pdf.image('E:/PythonProjects/tesis-app/data/output/retLime/8__pred.png', x=115, y=260, w=57)    
+        
+        # pdf.set_font("Poppins", "", 12)
+        # pdf.set_xy(20, 190)
+        # pdf.set_text_color(0, 113, 192)
+        # pdf.multi_cell(170,5,"Model DECA", 0,'L')
+        # pdf.set_font("Poppins", "", 10)
+        
+        # pdf.image('E:/PythonProjects/tesis-view/output/deca/pro/happy1/happy1_rendered_images.jpg', x=25, y=200, w=25)
             
     pdf.output('teste_report.pdf')
     
     return ''
 
-if __name__=='__main__':   
+def getValores():
     
+    ## Session
+    ## Image real
+    ## Deep3D Face
+    ## Deca Face
+    retorno = []
+    
+    ## Image Real
+    real = []
+    session = []
+    for r in os.listdir('E:/PythonProjects/tesis-view/images/'):
+        session.append(r)
+        for l in os.listdir('E:/PythonProjects/tesis-view/images/' + r):            
+            if '.png' in l or '.jpg' in l: real.append('E:/PythonProjects/tesis-view/images/' + r + '/' + l)
+    
+    retorno.append(session)
+    retorno.append(real)
+    
+    ## CG Deep3D
+    cgDeep = []
+    for r in os.listdir('E:/PythonProjects/tesis-view/output/deep3d/'):        
+        for l in os.listdir('E:/PythonProjects/tesis-view/output/deep3d/' + r):        
+            if '.png' in l or '.jpg' in l: cgDeep.append('E:/PythonProjects/tesis-view/output/deep3d/' + r + '/' + l)
+            
+    retorno.append(cgDeep)
+    
+    ## CG Deca
+    cgDeca = []
+    for r in os.listdir('E:/PythonProjects/tesis-view/output/deca/'):        
+        for l in os.listdir('E:/PythonProjects/tesis-view/output/deca/' + r):            
+            if '.jpg' not in l:                
+                for s in os.listdir('E:/PythonProjects/tesis-view/output/deca/' + r + '/' + l):                    
+                    if 'rendered_images-cutout' in s: cgDeca.append('E:/PythonProjects/tesis-view/output/deca/' + r + '/' + l + '/' + s)
+    
+    retorno.append(cgDeca)
+                    
+    ## CG UV's
+    cgDeepUv = []
+    for r in os.listdir('E:/PythonProjects/tesis-view/output/uv/deep3d/'):
+        for l in os.listdir('E:/PythonProjects/tesis-view/output/uv/deep3d/' + r):
+            cgDeepUv.append('E:/PythonProjects/tesis-view/output/uv/deep3d/' + r + '/' + l)
+            
+    retorno.append(cgDeepUv)    
+    
+    return retorno
+
+if __name__=='__main__':   
+        
     geraPdf()
