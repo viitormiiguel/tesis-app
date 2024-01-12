@@ -130,43 +130,43 @@ def geraPdf():
         
         pdf.set_font("Poppins", "", 8)
         pdf.set_xy(120, 60)
-        pdf.multi_cell(170,5,"AU01 - 1.0", 0,'L')
+        pdf.multi_cell(170,5,"AU01 - " + str(ret[5][i][0]), 0,'L')
         pdf.set_xy(120, 65)
-        pdf.multi_cell(170,5,"AU02 - 1.3", 0,'L')
+        pdf.multi_cell(170,5,"AU02 - " + str(ret[5][i][1]), 0,'L')
         pdf.set_xy(120, 70)
-        pdf.multi_cell(170,5,"AU04 - 0.6", 0,'L')
+        pdf.multi_cell(170,5,"AU04 - " + str(ret[5][i][2]), 0,'L')
         pdf.set_xy(120, 75)
-        pdf.multi_cell(170,5,"AU05 - 0.7", 0,'L')
+        pdf.multi_cell(170,5,"AU05 - " + str(ret[5][i][3]), 0,'L')
         pdf.set_xy(120, 80)
-        pdf.multi_cell(170,5,"AU06 - 4.1", 0,'L')
+        pdf.multi_cell(170,5,"AU06 - " + str(ret[5][i][4]), 0,'L')
         pdf.set_xy(120, 85)
-        pdf.multi_cell(170,5,"AU07 - 2.0", 0,'L')
+        pdf.multi_cell(170,5,"AU07 - " + str(ret[5][i][5]), 0,'L')
         
         pdf.set_xy(150, 60)
-        pdf.multi_cell(170,5,"AU09 - 1.1", 0,'L')
+        pdf.multi_cell(170,5,"AU09 - " + str(ret[5][i][6]), 0,'L')
         pdf.set_xy(150, 65)
-        pdf.multi_cell(170,5,"AU10 - 1.7", 0,'L')
+        pdf.multi_cell(170,5,"AU10 - " + str(ret[5][i][7]), 0,'L')
         pdf.set_xy(150, 70)
-        pdf.multi_cell(170,5,"AU12 - 4.8", 0,'L')
+        pdf.multi_cell(170,5,"AU12 - " + str(ret[5][i][8]), 0,'L')
         pdf.set_xy(150, 75)
-        pdf.multi_cell(170,5,"AU14 - 1.1", 0,'L')
+        pdf.multi_cell(170,5,"AU14 - " + str(ret[5][i][9]), 0,'L')
         pdf.set_xy(150, 80)
-        pdf.multi_cell(170,5,"AU15 - 0.0", 0,'L')
+        pdf.multi_cell(170,5,"AU15 - " + str(ret[5][i][10]), 0,'L')
         pdf.set_xy(150, 85)
-        pdf.multi_cell(170,5,"AU17 - 0.0", 0,'L')
+        pdf.multi_cell(170,5,"AU17 - " + str(ret[5][i][11]), 0,'L')
         
         pdf.set_xy(180, 60)
-        pdf.multi_cell(170,5,"AU20 - 1.1", 0,'L')
+        pdf.multi_cell(170,5,"AU20 - " + str(ret[5][i][12]), 0,'L')
         pdf.set_xy(180, 65)
-        pdf.multi_cell(170,5,"AU23 - 1.9", 0,'L')
+        pdf.multi_cell(170,5,"AU23 - " + str(ret[5][i][13]), 0,'L')
         pdf.set_xy(180, 70)
-        pdf.multi_cell(170,5,"AU25 - 2.1", 0,'L')
+        pdf.multi_cell(170,5,"AU25 - " + str(ret[5][i][14]), 0,'L')
         pdf.set_xy(180, 75)
-        pdf.multi_cell(170,5,"AU26 - 2.2", 0,'L')
+        pdf.multi_cell(170,5,"AU26 - " + str(ret[5][i][15]), 0,'L')
         pdf.set_xy(180, 80)
-        pdf.multi_cell(170,5,"AU28 - 1.1", 0,'L')
-        pdf.set_xy(180, 85)
-        pdf.multi_cell(170,5,"AU45 - 0.0", 0,'L')
+        pdf.multi_cell(170,5,"AU28 - " + str(ret[5][i][16]), 0,'L')
+        # pdf.set_xy(180, 85)
+        # pdf.multi_cell(170,5,"AU45 - " + str(ret[5][i][17]), 0,'L')
         
         ######################################### MODEL DEEP3D ##################################################
         pdf.set_font("Poppins", "", 12)
@@ -318,7 +318,19 @@ def getValores():
         for l in os.listdir('E:/PythonProjects/tesis-view/output/uv/deep3d/' + r):
             cgDeepUv.append('E:/PythonProjects/tesis-view/output/uv/deep3d/' + r + '/' + l)
             
-    retorno.append(cgDeepUv)    
+    retorno.append(cgDeepUv)
+    
+    ## OpenFace
+    openFace = []
+    for r in os.listdir('E:/PythonProjects/tesis-view/output/openface/real/'):
+        for l in os.listdir('E:/PythonProjects/tesis-view/output/openface/real/' + r):
+            for s in os.listdir('E:/PythonProjects/tesis-view/output/openface/real/' + r + '/' + l):
+                if '.csv' in s:
+                    arquivo = pd.read_csv('E:/PythonProjects/tesis-view/output/openface/real/' + r + '/' + l + '/' + s)                
+                    valores = arquivo.iloc[:, 676:693].values
+                    openFace.append(list(valores[0]))
+    
+    retorno.append(openFace)
     
     return retorno
 
